@@ -1,46 +1,253 @@
-<!DOCTYPE html>
+<!-- Copyright (c) 2012 Mobile Developer Solutions -->
+<!DOCTYPE HTML>
 <html>
     <head>
-        <title>jQM Complex Demo</title>
-        <meta http-equiv='Content-Type' content='text/html; charset=utf-8'/>
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no; target-densityDpi=device-dpi"/>
-        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.css" />
-        <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>          
-        <script src="http://code.jquery.com/mobile/1.3.1/jquery.mobile-1.3.1.min.js"></script>    
-        <script>
-      	function sendDjango(e){
-          $.ajax({
-                  type       : "POST",
-                  url        : "http://localhost:8000/polls/",
-                  crossDomain: true,
-                  beforeSend : function() {$.mobile.loading('show')},
-                  complete   : function() {$.mobile.loading('hide')},
-                  data       : {title : 'console2', code : 'codigo2'},
-                  dataType   : 'json',
-          	//headers: {'Content-Type': 'application/json'},
-                  success    : function(response) {
-                      //console.log(JSON.stringify(response));
-                      console.log(response);
-                      
-                      console.log('Works!');
-                  },
-                  error      : function() {
-                      //console.error("error");
-          	    //console.log(JSON.stringify(response));
-                      console.log('Send with error!');                  
-                  }
-              });}
-        </script>
-    </head>
-    <body>
-        <div data-role="page" id="index">
-            <div data-theme="b" data-role="header">
-                <h1>Index page</h1>
-            </div>
+        <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
+        <title>MDS PhoneGap API Demo with jQuery Mobile</title>
 
-            <div data-role="content">
-		<center><input onclick="sendDjango(this.value)" type="button" value="Send Form" /></center>
-            </div>
-        </div>    
+        <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
+        <link rel="stylesheet" href="index.css" /> 
+
+        <script src="jquery.mobile/jquery-1.7.2.min"></script>
+        <script src="jquery.mobile/jquery.mobile-1.1.0.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="cordova-1.9.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="index.js"></script>
+
+        <!-- CDN Respositories: For production, replace lines above with these uncommented minified versions -->
+        <!-- <link rel="stylesheet" href="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.css" />-->
+        <!-- <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>-->
+        <!-- <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>-->
+    </head>
+
+    <body onload="init();">
+
+        <form id='target'>
+
+            <div data-role="page" id='pagina1'>
+
+                <div data-role="header" data-position='fixed'>
+                    <h1>Formulario Pregunta 1 </h1>
+                    <a href="#pagina1">home</a>
+                    <a href="#pagina2">Siguiente</a>
+                </div><!-- /header -->
+
+                <div data-role="content">	
+                    <div data-role="fievcxldcontain">
+                        <label for="pregunta1">Nombre</label>
+                        <input type="text" name="pregunta1" id="pregunta1" value=""  />
+                    </div>
+
+                </div><!-- /content -->
+
+                <div data-role="footer" data-position='fixed'>
+                    <h4>Page Footer</h4>
+                </div><!-- /footer -->
+            </div><!-- /page1 -->
+
+            <!-------------------------------------------------------------------------------------------------------------------->
+
+            <div data-role="page" id='pagina2' data-position='fixed'>
+
+                <div data-role="header">
+                    <h1>Pregunta 2</h1>
+                    <a href="#pagina1">Anterior</a>
+                    <a href="#pagina3">Siguiente</a>
+                </div><!-- /header -->
+
+                <div data-role="content">	
+                    <div data-role="fievcxldcontain">
+                        <label for="pregunta2">Apellidos</label>
+                        <input type="text" name="pregunta2" id="pregunta2" value=""  />
+                    </div>	
+                </div><!-- /content -->
+
+                <div data-role="footer" data-position='fixed'>
+                    <h4>Page Footer</h4>
+                </div><!-- /footer -->
+            </div><!-- /page2 -->
+
+            <!-------------------------------------------------------------------------------------------------------------------->
+            <div data-role="page" id='pagina3'>
+
+                <div data-role="header" data-position='fixed'>
+                    <h1>Pregunta 3</h1>
+                    <a href="#pagina2">Anterior</a>
+                    <a href="#pagina4">Siguiente</a>
+                </div><!-- /header -->
+
+                <div data-role="content">	
+                    <div data-role="fievcxldcontain">
+                        <label for="number">Edad</label>
+                        <input type="number" name="pregunta3" id="number" value=""  />
+                    </div>		
+                </div><!-- /content -->
+
+                <div data-role="footer" data-position='fixed'>
+                    <h4>Page Footer</h4>
+                </div><!-- /footer -->
+            </div><!-- /page3 -->
+
+            <!-------------------------------------------------------------------------------------------------------------------->
+            <div data-role="page" id='pagina4'>
+
+                <div data-role="header" data-position='fixed'>
+                    <h1>Pregunta 4</h1>
+                    <a href="#pagina3">Anterior</a>
+                </div><!-- /header -->
+
+                <div data-role="content" >	
+                    <div data-role="fieldcontain">
+                        <fieldset data-role="controlgroup">
+                            <input type="checkbox" name="pregunta4" id="checkbox-1" class="custom" />
+                            <label for="checkbox-1">tiene Mascotas??</label>
+                        </fieldset>
+
+                        <hr>
+
+                        <button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
+                    </div>		
+                </div><!-- /content -->
+
+                <div data-role="footer" data-position='fixed'>
+                    <h4>Page Footer</h4>
+                </div><!-- /footer -->
+            </div><!-- /page4 -->
+
+        </form>    
     </body>
-</html>   
+</html>
+
+<script>
+        $("#target").submit(function(event) {
+            event.preventDefault();
+            var data = $("#target").serialize(); 
+            console.log(data); 
+            $.ajax({
+                type: "POST",
+                url: "http://app.openzix.com/polls/",
+                data: data,
+                success: function(datos) {
+                    alert("Se guardaron los datos: " + datos);
+                }
+            });
+        });
+</script>
+
+
+<!--div data-role="page" id="page-home" class="type-interior" data-theme="b">
+            <div data-role="header" data-theme="b">
+                
+                <a href="#">Borrar</a>
+                <h1>Formulario</h1>
+                <a href="mapa.html">Siguiente</a>
+<!--a href="#" data-icon="home" data-iconpos="notext" id="intro" class="ui-btn-right">intro</a-->
+<!--/div>
+<div data-role="content" data-theme="c">
+    <div>
+        <label for="select-choice-1" class="select">Presentacion</label>
+        Buenos dias (Tardes), soy (NOMBRE), y trabajo para Mediciones y Medios , una compañia de investagiacion de mercado y 
+        actualmente estamos...
+        <select name="select-choice-1" id="select-choice-1">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">11</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+        </select>
+    </div>
+
+    <hr>
+    <h3>Habitos de desplazamiento</h3>
+    <hr>
+
+    <div>
+        <label for="pregunta_1" class="select">1. Cuanto tiempo usted movilizandose en el dia normalmente?</label>
+        <select name="pregunta_1" id="pregunta_1">
+            <option value="1">Menos de una Hora</option>
+            <option value="2">Entre una hora y dos horas</option>
+            <option value="3">Entre dos y tres horas</option>
+            <option value="4">Entre 3 y 5</option>
+            <option value="97">Mas de Cinco Horas</option>
+        </select>
+    </div>
+    <hr>
+    <div>
+        <label for="pregunta_2" class="select">2. Los siguientes tipos de Vehiculos, con cuales cuenta Ud.</label>
+        <select name="pregunta_2" id="pregunta_2">
+            <option value="1">Vehiculo Particular</option>
+            <option value="2">Vahiculo publico tipo taxi</option>
+            <option value="3">Vahiculo publico tipo bus/buseta/calectivo</option>
+            <option value="4">Motocicleta</option>
+            <option value="5">Bicicleta de motor</option>
+            <option value="6">Bicicleta tradicional</option>
+            <option value="7">¿Otro? ¿cual? </option>
+        </select>
+        <input type="text">
+    </div>
+    <hr>
+    <div>
+        <label for="pregunta_3" class="select">
+            3. Con Cul de las Siguientes frases identifica mejor sus
+            habitos de desplazamiento en un dia normal de su vida?
+        </label>
+
+        <fieldset data-role="controlgroup">
+            <legend>
+                Con cual de las siguientes frases identifica mejor 
+                su habito de de desplazamiento en un dia nomael de su vida
+            </legend>
+
+            <input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
+            <label for="radio-choice-1">
+                Se moviliza todo el dia en vehiculo/moto particular.
+            </label>
+
+            <input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
+            <label for="radio-choice-2">
+                Se moviliza todo el dia en trasporte publico.
+            </label>
+
+            <input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3"  />
+            <label for="radio-choice-3">
+                Solamente se moviliza de la casa al trabajo y del trabajo ala casa
+            </label>
+
+            <input type="radio" name="radio-choice-1" id="radio-choice-4" value="choice-4"  />
+            <label for="radio-choice-4">
+                Solamente se moviliza de la casa al estudio y del estudio ala casa
+            </label>
+
+            <input type="radio" name="radio-choice-1" id="radio-choice-5" value="choice-5"  />
+            <label for="radio-choice-5">
+                Pasa la mayor parte del tiempo en la casa y se moviliza muy poco
+            </label>
+        </fieldset>
+
+    </div> 
+
+</div>
+
+<div data-role="footer" data-theme="b">
+    <p>&copy; 2014 OpenZix Mobile Developer Solutions</p>             
+</div>
+</div--!>
