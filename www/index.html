@@ -4,7 +4,7 @@
     <head>
         <meta http-equiv="Content-type" name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no, width=device-width">
         <title>MDS PhoneGap API Demo with jQuery Mobile</title>
-
+        <script type="text/javascript"  src="http://maps.googleapis.com/maps/api/js?key=AIzaSyD3gh3elNLR1bY0rVlcSEKLWjT93aEB3vw&sensor=true"></script>
         <link rel="stylesheet" href="jquery.mobile/jquery.mobile-1.1.0.min.css" />
         <link rel="stylesheet" href="index.css" /> 
 
@@ -19,7 +19,7 @@
         <!-- <script src="http://code.jquery.com/mobile/1.1.0/jquery.mobile-1.1.0.min.js"></script>-->
     </head>
 
-    <body onload="init();">
+    <body onload="initialize();">
 
         <form id='target'>
 
@@ -36,11 +36,24 @@
                         <label for="pregunta1">Nombre</label>
                         <input type="text" name="pregunta1" id="pregunta1" value=""  />
                     </div>
-
+                    <hr>
+                    <ul data-role="listview" class="ui-listview">
+                        <li data-theme="c" class="ui-btn ui-btn-icon-right ui-li ui-btn-up-c"><div class="ui-btn-inner ui-li">
+                                <div class="ui-btn-text">
+                                    <div id="verMapa"  class="ui-link-inherit">
+                                        <h1 class="ui-li-heading">Ocultar Mapa</h1>
+                                    </div>
+                                </div>
+                                <span class="ui-icon ui-icon-arrow-r"></span>
+                            </div>
+                        </li>
+                    </ul>
+                    <hr>
+                    <div id="map_canvas"  style="height:300px;"></div>
                 </div><!-- /content -->
 
                 <div data-role="footer" data-position='fixed'>
-                    <h4>Page Footer</h4>
+                    <h4>OpenZix.com</h4>
                 </div><!-- /footer -->
             </div><!-- /page1 -->
 
@@ -62,7 +75,7 @@
                 </div><!-- /content -->
 
                 <div data-role="footer" data-position='fixed'>
-                    <h4>Page Footer</h4>
+                    <h4>OpenZix.com</h4>
                 </div><!-- /footer -->
             </div><!-- /page2 -->
 
@@ -79,13 +92,16 @@
                     <div data-role="fievcxldcontain">
                         <label for="number">Edad</label>
                         <input type="number" name="pregunta3" id="number" value=""  />
-                    </div>		
+                    </div>
+
                 </div><!-- /content -->
 
                 <div data-role="footer" data-position='fixed'>
-                    <h4>Page Footer</h4>
+                    <h4>OpenZix.com</h4>
                 </div><!-- /footer -->
             </div><!-- /page3 -->
+
+            <!-------------------------------------------------------------------------------------------------------------------->
 
             <!-------------------------------------------------------------------------------------------------------------------->
             <div data-role="page" id='pagina4'>
@@ -104,33 +120,59 @@
 
                         <hr>
 
-                        <button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Submit</button>
+                        <button type="submit" data-theme="a" name="submit" value="submit-value" class="ui-btn-hidden" aria-disabled="false">Enviar</button>
                     </div>		
                 </div><!-- /content -->
 
                 <div data-role="footer" data-position='fixed'>
-                    <h4>Page Footer</h4>
+                    <h4>OpenZix.com</h4>
                 </div><!-- /footer -->
             </div><!-- /page4 -->
 
-        </form>    
+        </form> 
+
+        <script type="text/javascript">
+        function initialize() {
+            var mapOptions = {
+                center: new google.maps.LatLng(4.598055599999999, -74.0758333),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var map = new google.maps.Map(document.getElementById("map_canvas"),
+                    mapOptions);
+
+        }
+        </script>
     </body>
 </html>
 
 <script>
-        $("#target").submit(function(event) {
-            event.preventDefault();
-            var data = $("#target").serialize(); 
-            console.log(data); 
-            $.ajax({
-                type: "POST",
-                url: "http://app.openzix.com/polls/",
-                data: data,
-                success: function(datos) {
-                    alert("Se guardaron los datos: " + datos);
-                }
-            });
+
+    $("#verMapa").click(function() {
+
+        if ($('#map_canvas').is(':visible')) {
+            $(this).find('h1').text('Ver Mapa');
+        } else {
+            $(this).find('h1').text('Ocultar Mapa');
+        }
+        $("#map_canvas").toggle(500);
+    });
+    $("#target").submit(function(event) {
+        event.preventDefault();
+        var data = $("#target").serialize();
+        //console.log(data);
+        $.ajax({
+            type: "POST",
+            url: "http://app.openzix.com/polls/",
+            data: data,
+            success: function(datos) {
+                alert('Datos Enviador !Exito¡');
+            },
+            error: function(error, quepaso, obje) {
+
+            }
         });
+    });
 </script>
 
 
